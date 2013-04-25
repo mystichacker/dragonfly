@@ -27,7 +27,8 @@ module Dragonfly
 
     def marshal_decode(string)
       marshal_string = b64_decode(string)
-      raise MaliciousString, "potentially malicious marshal string #{marshal_string.inspect}" if marshal_string[/@[a-z_]/i]
+      #TODO: Back this out because it is not a reliable detection and may be inappropriate
+      #raise MaliciousString, "potentially malicious marshal string #{marshal_string.inspect}" if marshal_string[/@[a-z_]/i]
       Marshal.load(marshal_string)
     rescue TypeError, ArgumentError => e
       raise BadString, "couldn't decode #{string} - got #{e}"
